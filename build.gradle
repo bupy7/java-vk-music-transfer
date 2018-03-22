@@ -35,7 +35,7 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'com.iamrusty.vkmusictransfer.Bootstrap'
+mainClassName = 'ru.mihaly4.vkmusictransfer.Bootstrap'
 
 // Configuration for jar file
 jar {
