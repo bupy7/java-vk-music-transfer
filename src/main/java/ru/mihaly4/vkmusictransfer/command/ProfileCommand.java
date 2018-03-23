@@ -4,8 +4,8 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.DefaultAbsSender;
 
-public class TakeCommand extends AbstractCommand {
-    public TakeCommand(DefaultAbsSender absSender) {
+public class ProfileCommand extends AbstractCommand {
+    public ProfileCommand(DefaultAbsSender absSender) {
         super(absSender);
     }
 

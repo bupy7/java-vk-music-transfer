@@ -8,6 +8,7 @@
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
+apply plugin: 'java-library'
 
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
@@ -24,14 +25,15 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    implementation 'com.intellij:annotations:+@jar'
+    implementation 'org.telegram:telegrambots:3.6'
+    implementation 'commons-cli:commons-cli:1.4'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'org.jsoup:jsoup:1.11.2'
+    implementation 'com.google.guava:guava:24.1-jre'
 
-    compile 'com.google.guava:guava:23.0'
-    compile 'com.intellij:annotations:+@jar'
-    compile 'org.telegram:telegrambots:3.6'
-    compile 'commons-cli:commons-cli:1.4'
-
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
+    // testImplementation 'com.squareup.okhttp3:mockwebserver:3.10.0'
 }
 
 // Define the main class for the application
@@ -54,6 +56,7 @@ run {
     }
 }
 
+// test task
 test {
     testLogging.showStandardStreams = true
 }

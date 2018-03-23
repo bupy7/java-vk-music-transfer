@@ -1,7 +1,7 @@
 package ru.mihaly4.vkmusictransfer;
 
 import ru.mihaly4.vkmusictransfer.command.AbstractCommand;
-import ru.mihaly4.vkmusictransfer.command.TakeCommand;
+import ru.mihaly4.vkmusictransfer.command.ProfileCommand;
 import org.jetbrains.annotations.Nullable;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
-    private static final String COMMAND_TAKE = "take";
+    private static final String COMMAND_PROFILE = "profile";
 
     private String username = "";
     private String token = "";
@@ -55,8 +55,8 @@ public class Bot extends TelegramLongPollingBot {
     private AbstractCommand getCommand(String name) {
         if (!commands.containsKey(name)) {
             switch (name) {
-                case COMMAND_TAKE:
-                    commands.put(COMMAND_TAKE, new TakeCommand(this));
+                case COMMAND_PROFILE:
+                    commands.put(COMMAND_PROFILE, new ProfileCommand(this));
                     break;
             }
         }
