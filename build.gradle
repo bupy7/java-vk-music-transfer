@@ -53,3 +53,7 @@ run {
         args runargs.split(',')
     }
 }
+
+test {
+    testLogging.showStandardStreams = true
+}

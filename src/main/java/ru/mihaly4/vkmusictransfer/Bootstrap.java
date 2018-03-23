@@ -22,7 +22,7 @@ public class Bootstrap {
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
         try {
-            botsApi.registerBot(new Bot(parseArgs(args).getUsername(), parseArgs(args).getToken()));
+            botsApi.registerBot(new Bot(parseArgs(args).getTgbUsername(), parseArgs(args).getTgbToken()));
 
             messager.println(">>> STARTED at " + getTimestamp());
         } catch (TelegramApiException e) {

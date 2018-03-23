@@ -16,19 +16,19 @@ public class ArgsHelper {
         cli = parser.parse(options, args);
     }
 
-    public String getToken() {
-        return cli.getOptionValue("token") != null ? cli.getOptionValue("token") : "";
+    public String getTgbToken() {
+        return cli.getOptionValue("tgb-token") != null ? cli.getOptionValue("tgb-token") : "";
     }
 
-    public String getUsername() {
-        return cli.getOptionValue("username") != null ? cli.getOptionValue("username") : "";
+    public String getTgbUsername() {
+        return cli.getOptionValue("tgb-username") != null ? cli.getOptionValue("tgb-username") : "";
     }
 
     private Options createOptions() {
         Options options = new Options();
 
-        options.addRequiredOption(null, "username", true, "Username of your bot");
-        options.addRequiredOption(null, "token", true, "Access token of your bot");
+        options.addRequiredOption(null, "tgb-username", true, "Username of your bot");
+        options.addRequiredOption(null, "tgb-token", true, "Access token of your bot");
 
         return options;
     }
