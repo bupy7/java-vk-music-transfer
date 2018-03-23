@@ -1,4 +1,4 @@
-vk-music-transfer
+java-vk-music-transfer
 =================
 
 ?
@@ -47,4 +47,4 @@ $ ./gradlew test
 License
 -------
 
-vk-music-transfer is released under the BSD-3-Clause License. See the bundled LICENSE.md for details.
+java-vk-music-transfer is released under the BSD-3-Clause License. See the bundled LICENSE.md for details.
