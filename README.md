@@ -1,7 +1,7 @@
 java-vk-music-transfer
 =================
 
-?
+[![Build Status](https://travis-ci.org/bupy7/java-vk-music-transfer.svg?branch=master)](https://travis-ci.org/bupy7/java-vk-music-transfer)
 
 Requirements
 ------------
