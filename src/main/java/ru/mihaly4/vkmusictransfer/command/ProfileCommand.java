@@ -46,23 +46,23 @@ public class ProfileCommand extends AbstractCommand {
                 final AtomicInteger current = new AtomicInteger(0);
 
                 action.forEach((name, link) -> {
-                    progressMessage
-                            .setText(getProgress(current.incrementAndGet(), total))
-                            .enableMarkdown(true);
-                    editMessageText(progressMessage);
+                    new Thread(() -> {
+                        synchronized (current) {
+                            progressMessage
+                                    .setText(getProgress(current.incrementAndGet(), total))
+                                    .enableMarkdown(true);
+                            editMessageText(progressMessage);
+                        }
 
-                    SendAudio audio = new SendAudio()
-                            .setChatId(input.getChatId())
-                            .setAudio(link)
-                            .setPerformer(name[0])
-                            .setTitle(name[1])
-                            .setCaption(String.join(" - ", name));
-                    sendAudio(audio);
+                        SendAudio audio = new SendAudio()
+                                .setChatId(input.getChatId())
+                                .setAudio(link)
+                                .setPerformer(name[0])
+                                .setTitle(name[1])
+                                .setCaption(String.join(" - ", name));
+                        sendAudio(audio);
+                    }).start();
                 });
-
-                sendMessage(new SendMessage()
-                        .setChatId(input.getChatId())
-                        .setText("That is all!"));
             }
         });
     }
@@ -76,6 +76,6 @@ public class ProfileCommand extends AbstractCommand {
     }
 
     private String getProgress(int current, int total) {
-        return String.format("*Progress:* %d/%d", current, total);
+        return String.format("*Progress:* %d/%d" + (current == total ? ". Done!" : ""), current, total);
     }
 }
