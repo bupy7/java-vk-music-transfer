@@ -46,23 +46,19 @@ public class ProfileCommand extends AbstractCommand {
                 final AtomicInteger current = new AtomicInteger(0);
 
                 action.forEach((link, name) -> {
-                    new Thread(() -> {
-                        synchronized (current) {
-                            progressMessage
-                                    .setText(getProgress(current.incrementAndGet(), total))
-                                    .enableMarkdown(true);
-                            editMessageText(progressMessage);
-                        }
+                    progressMessage
+                            .setText(getProgress(current.incrementAndGet(), total))
+                            .enableMarkdown(true);
+                    editMessageText(progressMessage);
 
-                        SendAudio audio = new SendAudio()
-                                .setChatId(input.getChatId())
-                                .setAudio(link)
-                                // don't work if to send audio by URL
-                                //.setPerformer(name[0])
-                                //.setTitle(name[1])
-                                .setCaption(String.join(" - ", name));
-                        sendAudio(audio);
-                    }).start();
+                    SendAudio audio = new SendAudio()
+                            .setChatId(input.getChatId())
+                            .setAudio(link)
+                            // don't work if to send audio by URL
+                            //.setPerformer(name[0])
+                            //.setTitle(name[1])
+                            .setCaption(String.join(" - ", name));
+                    sendAudio(audio);
                 });
             }
         });
@@ -77,6 +73,6 @@ public class ProfileCommand extends AbstractCommand {
     }
 
     private String getProgress(int current, int total) {
-        return String.format("*Progress:* %d/%d" + (current == total ? ". Done!" : ""), current, total);
+        return String.format("*Progress:* %d/%d%s", current, total, current == total ? ". Done!" : "");
     }
 }
