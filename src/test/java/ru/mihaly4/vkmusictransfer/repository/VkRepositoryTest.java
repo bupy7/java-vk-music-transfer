@@ -19,7 +19,7 @@ public class VkRepositoryTest {
     public void getFromProfile() throws InterruptedException {
         VkClient client = new VkClient();
         VkRepository repository = new VkRepository(client, new VkMusicLinkDecoder());
-        final Map<String[], String> links = new HashMap<>();
+        final Map<String, String[]> links = new HashMap<>();
 
         final CountDownLatch signal = new CountDownLatch(1);
 

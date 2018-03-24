@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public class VkRepository {
-    private static final int STEP = 100;
+    private static final int STEP = 50;
     private static final long DDOS_DELAY = 1000;
 
     private IVkClient client;
@@ -27,9 +27,9 @@ public class VkRepository {
         this.linkDecoder = linkDecoder;
     }
 
-    public CompletableFuture<Map<String[], String>> findAllByProfile(int id) {
+    public CompletableFuture<Map<String, String[]>> findAllByProfile(int id) {
         return CompletableFuture.supplyAsync(() -> {
-            final Map<String[], String> links = new HashMap<>();
+            final Map<String, String[]> links = new HashMap<>();
             int oldLinkSize = 0;
             int page = 0;
 
@@ -49,7 +49,7 @@ public class VkRepository {
                     String encodedLink = track.selectFirst("input").val();
                     String link = linkDecoder.decode(encodedLink, client.getUid());
 
-                    links.put(new String[]{author, title}, link);
+                    links.put(link, new String[]{author, title});
                 }
 
                 try {

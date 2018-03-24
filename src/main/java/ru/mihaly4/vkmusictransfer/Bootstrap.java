@@ -1,5 +1,6 @@
 package ru.mihaly4.vkmusictransfer;
 
+import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 import ru.mihaly4.vkmusictransfer.client.VkClient;
 import ru.mihaly4.vkmusictransfer.decoder.VkMusicLinkDecoder;
 import ru.mihaly4.vkmusictransfer.helper.ArgsHelper;
@@ -9,7 +10,6 @@ import ru.mihaly4.vkmusictransfer.repository.VkRepository;
 import org.apache.commons.cli.ParseException;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 public class Bootstrap {
     private static final int EXIT_STATUS_ERROR = 1;
@@ -36,8 +36,8 @@ public class Bootstrap {
             botsApi.registerBot(bot);
 
             log.info("STARTED");
-        } catch (TelegramApiException e) {
-            log.error("API EXCEPTION: \n-" + e.getMessage());
+        } catch (TelegramApiRequestException e) {
+            log.error("API REQUEST: \n-" + e.getMessage());
 
             System.exit(EXIT_STATUS_ERROR);
         }

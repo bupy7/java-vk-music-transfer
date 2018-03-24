@@ -45,7 +45,7 @@ public class ProfileCommand extends AbstractCommand {
                 final int total = action.size();
                 final AtomicInteger current = new AtomicInteger(0);
 
-                action.forEach((name, link) -> {
+                action.forEach((link, name) -> {
                     new Thread(() -> {
                         synchronized (current) {
                             progressMessage
@@ -57,8 +57,9 @@ public class ProfileCommand extends AbstractCommand {
                         SendAudio audio = new SendAudio()
                                 .setChatId(input.getChatId())
                                 .setAudio(link)
-                                .setPerformer(name[0])
-                                .setTitle(name[1])
+                                // don't work if to send audio by URL
+                                //.setPerformer(name[0])
+                                //.setTitle(name[1])
                                 .setCaption(String.join(" - ", name));
                         sendAudio(audio);
                     }).start();
