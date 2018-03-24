@@ -6,7 +6,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-public class VkClient implements VkClientInterface {
+public class VkClient implements IVkClient {
     private static final String BASE_PROFILE_URL = "https://m.vk.com/audios";
 
     private String remixSid = "";

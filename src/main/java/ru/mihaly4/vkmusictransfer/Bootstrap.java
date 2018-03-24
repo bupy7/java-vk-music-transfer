@@ -3,21 +3,18 @@ package ru.mihaly4.vkmusictransfer;
 import ru.mihaly4.vkmusictransfer.client.VkClient;
 import ru.mihaly4.vkmusictransfer.decoder.VkMusicLinkDecoder;
 import ru.mihaly4.vkmusictransfer.helper.ArgsHelper;
+import ru.mihaly4.vkmusictransfer.log.ConsoleLog;
+import ru.mihaly4.vkmusictransfer.log.ILog;
 import ru.mihaly4.vkmusictransfer.repository.VkRepository;
-import ru.mihaly4.vkmusictransfer.ui.Messager;
 import org.apache.commons.cli.ParseException;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Bootstrap {
     private static final int EXIT_STATUS_ERROR = 1;
 
-    private static Messager messager = new Messager();
+    private static ILog log = new ConsoleLog();
 
     private Bootstrap(String[] args) {
         ApiContextInitializer.init();
@@ -38,9 +35,9 @@ public class Bootstrap {
         try {
             botsApi.registerBot(bot);
 
-            messager.println(">>> STARTED at " + getTimestamp());
+            log.info("STARTED");
         } catch (TelegramApiException e) {
-            messager.println(">>> ERROR: \n-" + e.getMessage());
+            log.error("API EXCEPTION: \n-" + e.getMessage());
 
             System.exit(EXIT_STATUS_ERROR);
         }
@@ -56,17 +53,11 @@ public class Bootstrap {
         try {
             argsHelper = new ArgsHelper(args);
         } catch (ParseException e) {
-            messager.println(">>> ERROR: \n- " + e.getMessage());
+            log.error("ERROR: \n- " + e.getMessage());
 
             System.exit(EXIT_STATUS_ERROR);
         }
 
         return argsHelper;
-    }
-
-    private String getTimestamp() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
-        Date date = new Date();
-        return dateFormat.format(date);
     }
 }

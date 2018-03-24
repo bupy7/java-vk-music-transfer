@@ -3,7 +3,7 @@ package ru.mihaly4.vkmusictransfer.repository;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import org.junit.Test;
-import ru.mihaly4.vkmusictransfer.client.VkClientInterface;
+import ru.mihaly4.vkmusictransfer.client.IVkClient;
 import ru.mihaly4.vkmusictransfer.decoder.VkMusicLinkDecoder;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class VkRepositoryTest {
         assertEquals(48, links.size());
     }
 
-    private static class VkClient implements VkClientInterface {
+    private static class VkClient implements IVkClient {
         @Override
         public String fromProfile(int id, int offset) {
             if (offset != 0) {

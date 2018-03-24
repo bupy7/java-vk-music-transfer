@@ -4,9 +4,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import ru.mihaly4.vkmusictransfer.client.VkClientInterface;
+import ru.mihaly4.vkmusictransfer.client.IVkClient;
 import ru.mihaly4.vkmusictransfer.decoder.VkMusicLinkDecoder;
-import ru.mihaly4.vkmusictransfer.ui.Messager;
+import ru.mihaly4.vkmusictransfer.log.ConsoleLog;
+import ru.mihaly4.vkmusictransfer.log.ILog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +18,11 @@ public class VkRepository {
     private static final int STEP = 100;
     private static final long DDOS_DELAY = 1000;
 
-    private VkClientInterface client;
+    private IVkClient client;
     private VkMusicLinkDecoder linkDecoder;
-    private Messager messager = new Messager();
+    private ILog log = new ConsoleLog();
 
-    public VkRepository(VkClientInterface client, VkMusicLinkDecoder linkDecoder) {
+    public VkRepository(IVkClient client, VkMusicLinkDecoder linkDecoder) {
         this.client = client;
         this.linkDecoder = linkDecoder;
     }
@@ -54,7 +55,7 @@ public class VkRepository {
                 try {
                     TimeUnit.MILLISECONDS.sleep(DDOS_DELAY);
                 } catch (InterruptedException e) {
-                    messager.println("DDOS DELAY ERROR: " + e.getMessage());
+                    log.error("DDOS DELAY: " + e.getMessage());
                 }
             } while (oldLinkSize != links.size());
 
