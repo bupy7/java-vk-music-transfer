@@ -1,5 +1,6 @@
 package ru.mihaly4.vkmusictransfer;
 
+import org.telegram.telegrambots.api.objects.Message;
 import ru.mihaly4.vkmusictransfer.command.AbstractCommand;
 import ru.mihaly4.vkmusictransfer.command.ProfileCommand;
 import org.jetbrains.annotations.Nullable;
@@ -12,6 +13,8 @@ import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
     private static final String COMMAND_PROFILE = "profile";
+    private static final String WORD_SEPARATOR = " ";
+    private static final String COMMAND_SEPARATOR = "@";
 
     private String username = "";
     private String token = "";
@@ -27,18 +30,23 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            String[] input = update.getMessage()
-                    .getText()
-                    .trim()
-                    .split(" ", 2);
+        Message message = null;
+        if (update.hasChannelPost()) {
+            message = update.getChannelPost();
+        }
+        if (update.hasMessage()) {
+            message = update.getMessage();
+        }
+
+        if (message != null) {
+            String[] input = message.getText().trim().split(WORD_SEPARATOR, 2);
 
             if (input.length != 0) {
-                String name = input[0].toLowerCase().substring(1);
+                String name = input[0].split(COMMAND_SEPARATOR, 2)[0].toLowerCase().substring(1);
 
                 AbstractCommand command = getCommand(name);
                 if (command != null) {
-                    command.execute(update);
+                    command.execute(message);
                 }
             }
         }
@@ -55,7 +63,7 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     @Nullable
-    private AbstractCommand getCommand(String name) {
+    private synchronized AbstractCommand getCommand(String name) {
         if (!commands.containsKey(name)) {
             switch (name) {
                 case COMMAND_PROFILE:

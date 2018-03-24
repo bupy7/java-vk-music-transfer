@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 
 import static org.junit.Assert.*;
@@ -20,7 +19,7 @@ public class VkRepositoryTest {
     public void getFromProfile() throws InterruptedException {
         VkClient client = new VkClient();
         VkRepository repository = new VkRepository(client, new VkMusicLinkDecoder());
-        final Map<String, String> links = new HashMap<>();
+        final Map<String[], String> links = new HashMap<>();
 
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -37,20 +36,18 @@ public class VkRepositoryTest {
 
     private static class VkClient implements VkClientInterface {
         @Override
-        public CompletableFuture<String> fromProfile(int id, int offset) {
-            return CompletableFuture.supplyAsync(() -> {
-                if (offset != 0) {
-                    return "";
-                }
+        public String fromProfile(int id, int offset) {
+            if (offset != 0) {
+                return "";
+            }
 
-                URL fixture = getClass().getResource("/fixture/profile.html");
+            URL fixture = getClass().getResource("/fixture/profile.html");
 
-                try {
-                    return Resources.toString(fixture, Charsets.UTF_8);
-                } catch (IOException e) {
-                    return "";
-                }
-            });
+            try {
+                return Resources.toString(fixture, Charsets.UTF_8);
+            } catch (IOException e) {
+                return "";
+            }
         }
 
         @Override
