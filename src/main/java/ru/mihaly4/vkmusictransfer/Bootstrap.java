@@ -1,6 +1,9 @@
 package ru.mihaly4.vkmusictransfer;
 
+import ru.mihaly4.vkmusictransfer.client.VkClient;
+import ru.mihaly4.vkmusictransfer.decoder.VkMusicLinkDecoder;
 import ru.mihaly4.vkmusictransfer.helper.ArgsHelper;
+import ru.mihaly4.vkmusictransfer.repository.VkRepository;
 import ru.mihaly4.vkmusictransfer.ui.Messager;
 import org.apache.commons.cli.ParseException;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -21,8 +24,19 @@ public class Bootstrap {
 
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
+        ArgsHelper conf = parseArgs(args);
+
+        Bot bot = new Bot(
+                conf.getTgbUsername(),
+                conf.getTgbToken(),
+                new VkRepository(
+                        new VkClient(conf.getVkRemixSid(), conf.getVkUid()),
+                        new VkMusicLinkDecoder()
+                )
+        );
+
         try {
-            botsApi.registerBot(new Bot(parseArgs(args).getTgbUsername(), parseArgs(args).getTgbToken()));
+            botsApi.registerBot(bot);
 
             messager.println(">>> STARTED at " + getTimestamp());
         } catch (TelegramApiException e) {

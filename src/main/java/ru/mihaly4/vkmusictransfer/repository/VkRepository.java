@@ -17,7 +17,7 @@ public class VkRepository {
     private VkClientInterface client;
     private VkMusicLinkDecoder linkDecoder;
 
-    VkRepository(VkClientInterface client, VkMusicLinkDecoder linkDecoder) {
+    public VkRepository(VkClientInterface client, VkMusicLinkDecoder linkDecoder) {
         this.client = client;
         this.linkDecoder = linkDecoder;
     }

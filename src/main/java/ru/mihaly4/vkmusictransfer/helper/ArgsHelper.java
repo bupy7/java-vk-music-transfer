@@ -28,8 +28,8 @@ public class ArgsHelper {
         return cli.getOptionValue("vk-remixsid") != null ? cli.getOptionValue("vk-remixsid") : "";
     }
 
-    public String getVkUid() {
-        return cli.getOptionValue("vk-uid") != null ? cli.getOptionValue("vk-uid") : "";
+    public int getVkUid() {
+        return cli.getOptionValue("vk-uid") != null ? Integer.valueOf(cli.getOptionValue("vk-uid")) : 0;
     }
 
     private Options createOptions() {
