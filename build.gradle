@@ -14,7 +14,7 @@ apply plugin: 'java-library'
 apply plugin: 'application'
 
 // package config params
-version = '1.0.0'
+version = '1.0.0-beta'
 
 // In this section you declare where to find the dependencies of your project
 repositories {

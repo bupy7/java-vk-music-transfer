@@ -18,7 +18,9 @@ Requirements
 Run
 ---
 
-**For using:**
+**Download the latest release** by [link](https://github.com/bupy7/java-vk-music-transfer/releases).
+
+**Execute:**
 
 ```bash
 $ java -jar vk-music-transfer-1.0.0.jar <ARGUMENTS>
