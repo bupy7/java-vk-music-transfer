@@ -23,7 +23,7 @@ Run
 **Execute:**
 
 ```bash
-$ java -jar vk-music-transfer-1.0.0.jar <ARGUMENTS>
+$ java -jar vk-music-transfer-<VERSION>.jar <ARGUMENTS>
 ```
 
 **Arguments:**
