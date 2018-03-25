@@ -28,9 +28,13 @@ $ java -jar vk-music-transfer-1.0.0.jar <ARGUMENTS>
 
 1. `--tgb-username`=your_telegram_bot
 2. `--tgb-token`=your:telegram_bot_token
-3. `--vk-remixsid`=your_vk_sid
+3. `--vk-remixsid`=your_vk_sid - From *remixsid* VK cookie
 4. `--vk-uid`=your_vk_id
 
+Bot commands
+------------
+
+- `/profile <id>` - Grab music from VK profile by ID of user. ID must be digit.
 
 Developing
 ----------
