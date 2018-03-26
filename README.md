@@ -44,10 +44,6 @@ Bot commands
 Developing
 ----------
 
-### Requirements
-
-- Gradle >= 4.3
-
 ### Build
 
 ```bash
