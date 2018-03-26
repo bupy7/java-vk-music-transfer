@@ -6,16 +6,17 @@
  * user guide available at https://docs.gradle.org/4.3.1/userguide/tutorial_java_projects.html
  */
 
-//plugins {
-//    id "net.ltgt.apt" version "0.10"
-//}
+plugins {
+    id "net.ltgt.apt" version "0.10"
+}
 
 apply plugin: 'java'
 apply plugin: 'java-library'
 apply plugin: 'application'
+apply plugin: 'idea'
 
 // package config params
-version = '1.0.0-beta'
+version = '1.0.1'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -32,9 +33,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'org.jsoup:jsoup:1.11.2'
     implementation 'com.google.guava:guava:24.1-jre'
-    //implementation 'com.google.dagger:dagger:2.14.1'
+    implementation 'com.google.dagger:dagger:2.14.1'
 
-    //apt 'com.google.dagger:dagger-compiler:2.14.1'
+    apt 'com.google.dagger:dagger-compiler:2.14.1'
 
     testImplementation 'junit:junit:4.12'
     // testImplementation 'com.squareup.okhttp3:mockwebserver:3.10.0'

@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import javax.inject.Inject;
 import java.io.IOException;
 
 public class VkClient implements IVkClient {
@@ -13,6 +14,7 @@ public class VkClient implements IVkClient {
     private int uid = 0;
     private OkHttpClient httpClient;
 
+    @Inject
     public VkClient(String remixSid, int uid) {
         this.remixSid = remixSid;
         this.uid = uid;

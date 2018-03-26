@@ -5,11 +5,6 @@ java-vk-music-transfer
 
 Transfer music from VK to Telegram.
 
-TODO
-----
-
-- DiC
-
 Requirements
 ------------
 
@@ -18,12 +13,20 @@ Requirements
 Run
 ---
 
-**Download the latest release** by [link](https://github.com/bupy7/java-vk-music-transfer/releases).
+1. **Download** the latest release by [link](https://github.com/bupy7/java-vk-music-transfer/releases).
 
-**Execute:**
+2. **Unarchive** the package.
+
+3. **Execute:**
 
 ```bash
-$ java -jar vk-music-transfer-<VERSION>.jar <ARGUMENTS>
+$ ./vk-music-transfer <ARGUMENTS>
+```
+
+or (for Windows)
+
+```bash
+$ ./vk-music-transfer.bat <ARGUMENTS>
 ```
 
 **Arguments:**

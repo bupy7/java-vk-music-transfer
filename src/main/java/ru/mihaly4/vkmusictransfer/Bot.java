@@ -8,6 +8,7 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import ru.mihaly4.vkmusictransfer.repository.VkRepository;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ public class Bot extends TelegramLongPollingBot {
 
     private Map<String, AbstractCommand> commands = new HashMap<>();
 
+    @Inject
     public Bot(String username, String token, VkRepository vkRepository) {
         this.username = username;
         this.token = token;
@@ -39,7 +41,10 @@ public class Bot extends TelegramLongPollingBot {
         }
 
         if (message != null) {
-            String[] input = message.getText().trim().split(WORD_SEPARATOR, 2);
+            String[] input = new String[0];
+            if (message.getText() != null) {
+                input = message.getText().trim().split(WORD_SEPARATOR, 2);
+            }
 
             if (input.length != 0) {
                 String name = input[0].split(COMMAND_SEPARATOR, 2)[0].toLowerCase().substring(1);

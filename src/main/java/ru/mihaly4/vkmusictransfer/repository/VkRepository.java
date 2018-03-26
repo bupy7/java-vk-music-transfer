@@ -9,6 +9,7 @@ import ru.mihaly4.vkmusictransfer.decoder.VkMusicLinkDecoder;
 import ru.mihaly4.vkmusictransfer.log.ConsoleLog;
 import ru.mihaly4.vkmusictransfer.log.ILog;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -22,6 +23,7 @@ public class VkRepository {
     private VkMusicLinkDecoder linkDecoder;
     private ILog log = new ConsoleLog();
 
+    @Inject
     public VkRepository(IVkClient client, VkMusicLinkDecoder linkDecoder) {
         this.client = client;
         this.linkDecoder = linkDecoder;

@@ -1,6 +1,14 @@
 java-vk-music-transfer
 ======================
 
+1.0.1 [2018-03-27]
+------------------
+
+First stable release.
+
+- Add #2: DiC.
+- Fix: Small bugs.
+
 1.0.0-beta [2018-03-25]
 -----------------------
 
