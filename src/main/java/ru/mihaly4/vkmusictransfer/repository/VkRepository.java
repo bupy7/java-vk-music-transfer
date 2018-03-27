@@ -38,7 +38,7 @@ public class VkRepository {
         return findAll(page -> client.fromProfile(id, PROFILE_LIMIT * page));
     }
 
-    public CompletableFuture<Map<String, String[]>> findAll(IFetcher fetcher) {
+    private CompletableFuture<Map<String, String[]>> findAll(IFetcher fetcher) {
         return CompletableFuture.supplyAsync(() -> {
             final Map<String, String[]> links = new HashMap<>();
             int oldLinkSize = 0;
