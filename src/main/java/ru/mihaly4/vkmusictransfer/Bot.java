@@ -2,6 +2,7 @@ package ru.mihaly4.vkmusictransfer;
 
 import org.telegram.telegrambots.api.objects.Message;
 import ru.mihaly4.vkmusictransfer.command.AbstractCommand;
+import ru.mihaly4.vkmusictransfer.command.CommunityCommand;
 import ru.mihaly4.vkmusictransfer.command.ProfileCommand;
 import org.jetbrains.annotations.Nullable;
 import org.telegram.telegrambots.api.objects.Update;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
     private static final String COMMAND_PROFILE = "profile";
+    private static final String COMMAND_COMMUNITY = "com";
     private static final String WORD_SEPARATOR = " ";
     private static final String COMMAND_SEPARATOR = "@";
 
@@ -73,6 +75,10 @@ public class Bot extends TelegramLongPollingBot {
             switch (name) {
                 case COMMAND_PROFILE:
                     commands.put(COMMAND_PROFILE, new ProfileCommand(this, vkRepository));
+                    break;
+
+                case COMMAND_COMMUNITY:
+                    commands.put(COMMAND_COMMUNITY, new CommunityCommand(this, vkRepository));
                     break;
             }
         }

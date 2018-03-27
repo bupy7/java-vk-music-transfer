@@ -39,7 +39,8 @@ $ ./vk-music-transfer.bat <ARGUMENTS>
 Bot commands
 ------------
 
-- `/profile <id>` - Grab music from VK profile by ID of user. ID must be digit.
+- `/profile <id>` - Grab music from VK profile by ID of user. ID must be digit. Example: `/profile 123456789`
+- `/com <id>` - Grab music from VK community by ID of its. ID must be string. Example: `/com crazy.music`
 
 Developing
 ----------

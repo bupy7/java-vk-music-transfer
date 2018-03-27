@@ -1,6 +1,7 @@
 package ru.mihaly4.vkmusictransfer.command;
 
 import org.jetbrains.annotations.Nullable;
+import org.telegram.telegrambots.api.methods.pinnedmessages.PinChatMessage;
 import org.telegram.telegrambots.api.methods.send.SendAudio;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
@@ -43,6 +44,21 @@ public abstract class AbstractCommand {
             absSender.sendAudio(audio);
         } catch (TelegramApiException e) {
             log.error("SEND AUDIO: \n- " + e.getMessage());
+        }
+    }
+
+    protected void pinMessage(Message message) {
+        if (message.getChat().isUserChat()) {
+            return;
+        }
+        PinChatMessage pinChatMessage = new PinChatMessage();
+        pinChatMessage.setChatId(message.getChatId())
+                .setMessageId(message.getMessageId())
+                .setDisableNotification(true);
+        try {
+            absSender.execute(pinChatMessage);
+        } catch (TelegramApiException e) {
+            log.error("PIN MESSAGE: \n- " + e.getMessage());
         }
     }
 }

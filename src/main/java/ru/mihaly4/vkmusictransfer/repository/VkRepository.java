@@ -16,7 +16,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public class VkRepository {
-    private static final int STEP = 50;
+    private static final int PROFILE_LIMIT = 50;
+    private static final int COMMUNITY_LIMIT = 5;
     private static final long DDOS_DELAY = 1000;
 
     private IVkClient client;
@@ -29,7 +30,15 @@ public class VkRepository {
         this.linkDecoder = linkDecoder;
     }
 
+    public CompletableFuture<Map<String, String[]>> findAllByCommunity(String id) {
+        return findAll(page -> client.fromCommunity(id, COMMUNITY_LIMIT * page));
+    }
+
     public CompletableFuture<Map<String, String[]>> findAllByProfile(int id) {
+        return findAll(page -> client.fromProfile(id, PROFILE_LIMIT * page));
+    }
+
+    public CompletableFuture<Map<String, String[]>> findAll(IFetcher fetcher) {
         return CompletableFuture.supplyAsync(() -> {
             final Map<String, String[]> links = new HashMap<>();
             int oldLinkSize = 0;
@@ -38,7 +47,7 @@ public class VkRepository {
             do {
                 oldLinkSize = links.size();
 
-                Document doc = Jsoup.parse(client.fromProfile(id, STEP * page++));
+                Document doc = Jsoup.parse(fetcher.fetch(page++));
 
                 Elements tracks = doc.select(".audio_item .ai_body");
 
@@ -63,5 +72,9 @@ public class VkRepository {
 
             return links;
         });
+    }
+
+    private interface IFetcher {
+        String fetch(int page);
     }
 }

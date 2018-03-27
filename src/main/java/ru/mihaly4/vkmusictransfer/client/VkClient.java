@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class VkClient implements IVkClient {
     private static final String BASE_PROFILE_URL = "https://m.vk.com/audios";
+    private static final String BASE_COMMUNITY_URL = "https://m.vk.com/";
 
     private String remixSid = "";
     private int uid = 0;
@@ -25,6 +26,27 @@ public class VkClient implements IVkClient {
         Request request = new Request.Builder()
                 .url(BASE_PROFILE_URL + id + "?offset=" + offset)
                 .addHeader("Cookie", "remixsid=" + remixSid)
+                .get()
+                .build();
+        Response response;
+        String html = "";
+        try {
+            response = getHttpClient().newCall(request).execute();
+            if (response.isSuccessful()) {
+                html = response.body().string();
+            }
+        } catch (IOException | NullPointerException e) {
+            html = "";
+        }
+
+        return html;
+    }
+
+    @Override
+    public String fromCommunity(String id, int offset) {
+        Request request = new Request.Builder()
+                .url(BASE_COMMUNITY_URL + id + "?offset=" + offset)
+                .addHeader("Cookie", "remixsid=" + remixSid + ";remixmdevice=375/667/1/!!-!!!!")
                 .get()
                 .build();
         Response response;

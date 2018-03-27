@@ -6,10 +6,10 @@ import ru.mihaly4.vkmusictransfer.repository.VkRepository;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class ProfileCommand extends AbstractGrabCommand {
+public class CommunityCommand extends AbstractGrabCommand {
     private VkRepository vkRepository;
 
-    public ProfileCommand(DefaultAbsSender absSender, VkRepository vkRepository) {
+    public CommunityCommand(DefaultAbsSender absSender, VkRepository vkRepository) {
         super(absSender);
 
         this.vkRepository = vkRepository;
@@ -17,11 +17,11 @@ public class ProfileCommand extends AbstractGrabCommand {
 
     @Override
     protected CompletableFuture<Map<String, String[]>> findAll(String id) {
-        return vkRepository.findAllByProfile(Integer.valueOf(id));
+        return vkRepository.findAllByCommunity(id);
     }
 
     @Override
     protected String getValidateMessage() {
-        return "You must enter the profile ID to grab music";
+        return "You must enter the community ID to grab music";
     }
 }
