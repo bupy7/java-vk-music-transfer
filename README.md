@@ -31,6 +31,8 @@ $ ./vk-music-transfer.bat <ARGUMENTS>
 
 **Arguments:**
 
+Nessasary
+
 1. `--tgb-username`=your_telegram_bot
 2. `--tgb-token`=your:telegram_bot_token
 3. `--vk-remixsid`=your_vk_sid - From *remixsid* VK cookie

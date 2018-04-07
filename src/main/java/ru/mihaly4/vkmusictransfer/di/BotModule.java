@@ -36,6 +36,6 @@ public class BotModule {
 
     @Provides
     public Bot provideBot(VkRepository vkRepository) {
-        return new Bot(config.getTgbUsername(), config.getTgbToken(), vkRepository);
+        return new Bot(config.getTgbUsername(), config.getTgbToken(), vkRepository, config.getTrustedTgbUsers());
     }
 }
