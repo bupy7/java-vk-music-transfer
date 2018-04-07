@@ -16,7 +16,7 @@ apply plugin: 'application'
 apply plugin: 'idea'
 
 // package config params
-version = '1.0.2'
+version = '1.0.3'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
