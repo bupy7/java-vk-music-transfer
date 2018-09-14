@@ -5,6 +5,8 @@ java-vk-music-transfer
 
 Transfer music from VK to Telegram.
 
+![java-vk-music-transfer](screenshot.gif)
+
 Requirements
 ------------
 
