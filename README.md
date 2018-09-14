@@ -34,16 +34,26 @@ $ ./vk-music-transfer.bat <ARGUMENTS>
 - Required
     1. `--tgb-username`=your_telegram_bot
     2. `--tgb-token`=your:telegram_bot_token
-    3. `--vk-remixsid`=your_vk_sid - From *remixsid* VK cookie
-    4. `--vk-uid`=your_vk_id
 - Optional
     1. `--trusted-tgb-users`=list_telegram_usernames, your_user_name, or_username_your_channel
+
+**In chat with bot:**
+
+```
+Me:     /login +79998887766 my_pass
+Bot:    You have logged successfully
+Me:     /wall some_group
+Bot:    Progress: 1/18
+
+etc...
+```
 
 Bot commands
 ------------
 
-- `/profile <id>` - Grab music from VK profile by ID of user. ID must be digit. Example: `/profile 123456789`
-- `/com <id>` - Grab music from VK community by ID of its. ID must be string. Example: `/com crazy.music`
+- `/login <phone> <password>` - Login in VK. Example: `/login +79998887766 my_fucking_password`;
+- `/audio <id>` - Grab music from audio page by ID of an user or a community. ID must be only digit. Example: `/audio 123456789` for user profiles or `/audio -123456789` for communities;
+- `/wall <id>` - Grab music from wall page by ID of an user of a community. Example: `/wall crazy.music` or `/wall id123456789`.
 
 Developing
 ----------

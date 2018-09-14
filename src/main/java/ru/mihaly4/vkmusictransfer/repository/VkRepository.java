@@ -9,7 +9,6 @@ import ru.mihaly4.vkmusictransfer.decoder.VkMusicLinkDecoder;
 import ru.mihaly4.vkmusictransfer.log.ConsoleLog;
 import ru.mihaly4.vkmusictransfer.log.ILog;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -17,25 +16,30 @@ import java.util.concurrent.TimeUnit;
 
 public class VkRepository {
     private static final int PROFILE_LIMIT = 50;
-    private static final int COMMUNITY_LIMIT = 5;
+    private static final int WALL_LIMIT = 5;
     private static final long DDOS_DELAY = 1000;
 
     private IVkClient client;
     private VkMusicLinkDecoder linkDecoder;
     private ILog log = new ConsoleLog();
 
-    @Inject
     public VkRepository(IVkClient client, VkMusicLinkDecoder linkDecoder) {
         this.client = client;
         this.linkDecoder = linkDecoder;
     }
 
-    public CompletableFuture<Map<String, String[]>> findAllByCommunity(String id) {
-        return findAll(page -> client.fromCommunity(id, COMMUNITY_LIMIT * page));
+    /**
+     * @since 1.1.0
+     */
+    public CompletableFuture<Map<String, String[]>> findAllByWall(String id) {
+        return findAll(page -> client.fromWall(id, WALL_LIMIT * page));
     }
 
-    public CompletableFuture<Map<String, String[]>> findAllByProfile(int id) {
-        return findAll(page -> client.fromProfile(id, PROFILE_LIMIT * page));
+    /**
+     * @since 1.1.0
+     */
+    public CompletableFuture<Map<String, String[]>> findAllByAudio(int id) {
+        return findAll(page -> client.fromAudio(id, PROFILE_LIMIT * page));
     }
 
     private CompletableFuture<Map<String, String[]>> findAll(IFetcher fetcher) {

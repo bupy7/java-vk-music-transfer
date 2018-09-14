@@ -29,8 +29,6 @@ public class ArgsHelperTest {
             return new ArgsHelper(new String[]{
                     "--tgb-token=1234:abcd",
                     "--tgb-username=telegram_bot",
-                    "--vk-remixsid=1q2w3e4r",
-                    "--vk-uid=1234",
                     "--trusted-tgb-users=peter,Ivan-Mahno, sergey_stupa , ivan-mahno.sergey_stupa ,ivan-mahno_4.sergey_stupa_5"
             });
         } catch (ParseException e) {

@@ -8,6 +8,8 @@ import ru.mihaly4.vkmusictransfer.client.VkClient;
 import ru.mihaly4.vkmusictransfer.decoder.VkMusicLinkDecoder;
 import ru.mihaly4.vkmusictransfer.repository.VkRepository;
 
+import javax.inject.Singleton;
+
 @Module
 public class BotModule {
     private PackageConfig config;
@@ -17,25 +19,31 @@ public class BotModule {
     }
 
     @Provides
-    @SharedScope
+    @Singleton
     public VkClient provideVkClient() {
-        return new VkClient(config.getVkRemixSid(), config.getVkUid());
+        return new VkClient();
     }
 
     @Provides
-    @SharedScope
+    @Singleton
     public VkMusicLinkDecoder provideVkMusicLinkDecoder() {
         return new VkMusicLinkDecoder();
     }
 
     @Provides
-    @SharedScope
+    @Singleton
     public VkRepository prodideVkRepository(VkClient vkClient, VkMusicLinkDecoder vkMusicLinkDecoder) {
         return new VkRepository(vkClient, vkMusicLinkDecoder);
     }
 
     @Provides
-    public Bot provideBot(VkRepository vkRepository) {
-        return new Bot(config.getTgbUsername(), config.getTgbToken(), vkRepository, config.getTrustedTgbUsers());
+    public Bot provideBot(VkRepository vkRepository, VkClient vkClient) {
+        return new Bot(
+                config.getTgbUsername(),
+                config.getTgbToken(),
+                vkRepository,
+                config.getTrustedTgbUsers(),
+                vkClient
+        );
     }
 }

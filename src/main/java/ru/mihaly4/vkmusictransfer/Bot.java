@@ -1,9 +1,11 @@
 package ru.mihaly4.vkmusictransfer;
 
 import org.telegram.telegrambots.api.objects.Message;
+import ru.mihaly4.vkmusictransfer.client.IVkClient;
 import ru.mihaly4.vkmusictransfer.command.AbstractCommand;
-import ru.mihaly4.vkmusictransfer.command.CommunityCommand;
-import ru.mihaly4.vkmusictransfer.command.ProfileCommand;
+import ru.mihaly4.vkmusictransfer.command.LoginCommand;
+import ru.mihaly4.vkmusictransfer.command.WallCommand;
+import ru.mihaly4.vkmusictransfer.command.AudioCommand;
 import org.jetbrains.annotations.Nullable;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -11,14 +13,14 @@ import ru.mihaly4.vkmusictransfer.log.ConsoleLog;
 import ru.mihaly4.vkmusictransfer.log.ILog;
 import ru.mihaly4.vkmusictransfer.repository.VkRepository;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
-    private static final String COMMAND_PROFILE = "profile";
-    private static final String COMMAND_COMMUNITY = "com";
+    private static final String COMMAND_AUDIO = "audio";
+    private static final String COMMAND_WALL = "wall";
+    private static final String COMMAND_LOGIN = "login";
     private static final String WORD_SEPARATOR = " ";
     private static final String COMMAND_SEPARATOR = "@";
 
@@ -27,20 +29,22 @@ public class Bot extends TelegramLongPollingBot {
     private VkRepository vkRepository;
     private List<String> trustedUsers;
     private ILog log = new ConsoleLog();
+    private IVkClient vkClient;
 
     private Map<String, AbstractCommand> commands = new HashMap<>();
 
-    @Inject
     public Bot(
             String username,
             String token,
             VkRepository vkRepository,
-            List<String> trustedUsers
+            List<String> trustedUsers,
+            IVkClient vkClient
     ) {
         this.username = username;
         this.token = token;
         this.vkRepository = vkRepository;
         this.trustedUsers = trustedUsers;
+        this.vkClient = vkClient;
     }
 
     @Override
@@ -76,12 +80,16 @@ public class Bot extends TelegramLongPollingBot {
     private synchronized AbstractCommand getCommand(String name) {
         if (!commands.containsKey(name)) {
             switch (name) {
-                case COMMAND_PROFILE:
-                    commands.put(COMMAND_PROFILE, new ProfileCommand(this, vkRepository));
+                case COMMAND_AUDIO:
+                    commands.put(COMMAND_AUDIO, new AudioCommand(this, vkRepository));
                     break;
 
-                case COMMAND_COMMUNITY:
-                    commands.put(COMMAND_COMMUNITY, new CommunityCommand(this, vkRepository));
+                case COMMAND_WALL:
+                    commands.put(COMMAND_WALL, new WallCommand(this, vkRepository));
+                    break;
+
+                case COMMAND_LOGIN:
+                    commands.put(COMMAND_LOGIN, new LoginCommand(this, vkClient));
                     break;
             }
         }

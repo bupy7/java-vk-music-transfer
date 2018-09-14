@@ -6,10 +6,13 @@ import ru.mihaly4.vkmusictransfer.repository.VkRepository;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class ProfileCommand extends AbstractGrabCommand {
+/**
+ * @since 1.1.0
+ */
+public class AudioCommand extends AbstractGrabCommand {
     private VkRepository vkRepository;
 
-    public ProfileCommand(DefaultAbsSender absSender, VkRepository vkRepository) {
+    public AudioCommand(DefaultAbsSender absSender, VkRepository vkRepository) {
         super(absSender);
 
         this.vkRepository = vkRepository;
@@ -17,7 +20,7 @@ public class ProfileCommand extends AbstractGrabCommand {
 
     @Override
     protected CompletableFuture<Map<String, String[]>> findAll(String id) {
-        return vkRepository.findAllByProfile(Integer.valueOf(id));
+        return vkRepository.findAllByAudio(Integer.valueOf(id));
     }
 
     @Override

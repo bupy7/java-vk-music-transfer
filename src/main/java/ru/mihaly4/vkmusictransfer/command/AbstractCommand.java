@@ -2,6 +2,7 @@ package ru.mihaly4.vkmusictransfer.command;
 
 import org.jetbrains.annotations.Nullable;
 import org.telegram.telegrambots.api.methods.pinnedmessages.PinChatMessage;
+import org.telegram.telegrambots.api.methods.pinnedmessages.UnpinChatMessage;
 import org.telegram.telegrambots.api.methods.send.SendAudio;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
@@ -59,6 +60,22 @@ public abstract class AbstractCommand {
             absSender.execute(pinChatMessage);
         } catch (TelegramApiException e) {
             log.error("PIN MESSAGE: \n- " + e.getMessage());
+        }
+    }
+
+    /**
+     * @since 1.1.0
+     */
+    protected void unpinMessage(Message message) {
+        if (message.getChat().isUserChat()) {
+            return;
+        }
+        UnpinChatMessage unpinChatMessage = new UnpinChatMessage();
+        unpinChatMessage.setChatId(message.getChatId());
+        try {
+            absSender.execute(unpinChatMessage);
+        } catch (TelegramApiException e) {
+            log.error("UNPIN MESSAGE: \n- " + e.getMessage());
         }
     }
 }

@@ -8,8 +8,6 @@ public class PackageConfigFactory {
 
         config.setTgbToken(argsHelper.getTgbToken());
         config.setTgbUsername(argsHelper.getTgbUsername());
-        config.setVkRemixSid(argsHelper.getVkRemixSid());
-        config.setVkUid(argsHelper.getVkUid());
         config.setTrustedTgbUsers(argsHelper.getTrustedTgbUsers());
 
         return config;

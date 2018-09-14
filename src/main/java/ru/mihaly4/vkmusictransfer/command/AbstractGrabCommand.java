@@ -54,13 +54,15 @@ public abstract class AbstractGrabCommand extends AbstractCommand {
                     SendAudio audio = new SendAudio()
                             .setChatId(input.getChatId())
                             .setAudio(link)
-                            // don't work if to send audio by URL
-                            //.setPerformer(name[0])
-                            //.setTitle(name[1])
+                            // below code don't work if send audio with URL
+                            // .setPerformer(name[0])
+                            // .setTitle(name[1])
                             .setCaption(String.join(" - ", name));
                     sendAudio(audio);
                 });
             }
+
+            unpinMessage(responseProgressMessage);
         });
     }
 

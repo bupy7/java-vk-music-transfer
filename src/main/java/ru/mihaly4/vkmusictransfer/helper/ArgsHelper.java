@@ -29,14 +29,6 @@ public class ArgsHelper {
         return cli.getOptionValue("tgb-username") != null ? cli.getOptionValue("tgb-username") : "";
     }
 
-    public String getVkRemixSid() {
-        return cli.getOptionValue("vk-remixsid") != null ? cli.getOptionValue("vk-remixsid") : "";
-    }
-
-    public int getVkUid() {
-        return cli.getOptionValue("vk-uid") != null ? Integer.valueOf(cli.getOptionValue("vk-uid")) : 0;
-    }
-
     public List<String> getTrustedTgbUsers() {
         if (cli.getOptionValue("trusted-tgb-users") == null) {
             return new ArrayList<>();
@@ -56,10 +48,8 @@ public class ArgsHelper {
     private Options createOptions() {
         Options options = new Options();
 
-        options.addRequiredOption(null, "tgb-username", true, "Username of your bot");
-        options.addRequiredOption(null, "tgb-token", true, "Access token of your bot");
-        options.addRequiredOption(null, "vk-remixsid", true, "Security identifier of your VK profile");
-        options.addRequiredOption(null, "vk-uid", true, "User identifier of your VK profile");
+        options.addRequiredOption(null, "tgb-username", true, "The username your bot");
+        options.addRequiredOption(null, "tgb-token", true, "The access token your bot");
 
         options.addOption(null, "trusted-tgb-users", true, "Trusted usernames who can use functional");
 

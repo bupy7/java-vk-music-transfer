@@ -1,6 +1,14 @@
 java-vk-music-transfer
 ======================
 
+1.1.0 [2018-09-15]
+------------------
+
+- Enh: Refactoring.
+- Add: Login through Telegram.
+- Add: Grab music from audio pages of communities and wall pages of user profiles.
+- Rem: Command `/profile` and `/com`.
+
 1.0.3 [2018-04-07]
 ------------------
 
