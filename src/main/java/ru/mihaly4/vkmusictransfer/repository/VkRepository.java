@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public class VkRepository {
-    private static final int PROFILE_LIMIT = 50;
+    private static final int AUDIO_LIMIT = 50;
     private static final int WALL_LIMIT = 5;
     private static final long DDOS_DELAY = 1000;
 
@@ -32,17 +32,17 @@ public class VkRepository {
      * @since 1.1.0
      */
     public CompletableFuture<Map<String, String[]>> findAllByWall(String id) {
-        return findAll(page -> client.fromWall(id, WALL_LIMIT * page));
+        return findAll(page -> client.fromWall(id, WALL_LIMIT * page), ".wi_body .audio_item .ai_body");
     }
 
     /**
      * @since 1.1.0
      */
     public CompletableFuture<Map<String, String[]>> findAllByAudio(int id) {
-        return findAll(page -> client.fromAudio(id, PROFILE_LIMIT * page));
+        return findAll(page -> client.fromAudio(id, AUDIO_LIMIT * page), ".audios_list .audio_item .ai_body");
     }
 
-    private CompletableFuture<Map<String, String[]>> findAll(IFetcher fetcher) {
+    private CompletableFuture<Map<String, String[]>> findAll(IFetcher fetcher, String selector) {
         return CompletableFuture.supplyAsync(() -> {
             final Map<String, String[]> links = new HashMap<>();
             int oldLinkSize = 0;
@@ -53,7 +53,7 @@ public class VkRepository {
 
                 Document doc = Jsoup.parse(fetcher.fetch(page++));
 
-                Elements tracks = doc.select(".audio_item .ai_body");
+                Elements tracks = doc.select(selector);
 
                 for (int i = 0; i != tracks.size(); i++) {
                     Element track = tracks.get(i);
